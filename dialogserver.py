@@ -7,7 +7,7 @@ app = Flask(__name__)
 # default route
 @app.route('/')
 def index():
-    return 'Hello World!'
+    return 'DialogFlow server is running!'
 
 # function for responses
 def results():
