@@ -99,7 +99,7 @@ def addhomework(param):
     # newdate = str(newdate)
     # # newdate = parse(newdate)
     # newdate = str(newdate.date())+"T"+str(newdate.time())+"+08:00"
-    print(newdate, "HAHA")
+    # print(newdate, "HAHA")
 
     event = {
         'summary': homeworktype,
