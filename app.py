@@ -1,5 +1,6 @@
 # import flask dependencies
 from flask import Flask, request, make_response, jsonify
+import requests
 # import intents
 
 # initialize the flask app
@@ -20,11 +21,10 @@ def webhook():
 
 
 def results():
-    # build a request object
     req = request.get_json(silent=True)
-    # fetch intent from json
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
+    fb_prams = req['originalDetectIntentRequest']["payload"]
     # if intent == 'get-homework':
     #     answer, longans = intents.gethomework()
     #     if answer == 'No':
@@ -36,13 +36,11 @@ def results():
     #     print(parameters)
     #     ans = intents.addhomework(parameters)
     #     return (ans)
-
     if intent == "init.cal":
         email = params["email"]
+        print(fb_prams)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
-    
-    # return a fulfillment response
     return {'fulfillmentText': 'This is a response from webhook.'}
 
 
