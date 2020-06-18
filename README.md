@@ -1,3 +1,11 @@
-# homewerkbot
-split your terminal in vs code to run ngrok http 5000 and then in your other terminal run dialogserver.py
-EZPZ
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+# roaster
+Get roasted for upcoming deadlines and your chronic procastination.
+
+Stack:
+Heroku
+Flask
+Python
+Dialogflow
+MongoDB
