@@ -47,7 +47,7 @@ def results():
         headers = {'Content-type': 'application/json'}
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = params["sender"]["id"]
-        message_req["message"]["text"] = "WORK"
+        message_req["message"]["text"] = "event is coming up soon! get ready!"
         requests.post(url, headers=headers, json=message_req)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
