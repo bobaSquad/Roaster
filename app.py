@@ -25,7 +25,7 @@ def results():
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
     fb_prams = req['originalDetectIntentRequest']
-    sender = fb_prams["sender"]["id"]
+    # sender = fb_prams["sender"]["id"]
     # if intent == 'get-homework':
     #     answer, longans = intents.gethomework()
     #     if answer == 'No':
