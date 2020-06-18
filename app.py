@@ -47,7 +47,7 @@ def results():
         email = params["email"]
         headers = {'Content-type': 'application/json'}
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
-        message_req["recipient"]["id"] = sender
+        message_req["recipient"]["id"] = 3783970868340132
         message_req["message"]["text"] = "event is coming up soon! get ready!"
         post_response = requests.post(url, headers=headers, json=message_req)
         print(post_response)
