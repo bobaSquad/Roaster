@@ -24,7 +24,8 @@ def results():
     req = request.get_json(silent=True)
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
-    fb_prams = req['originalDetectIntentRequest']["payload"]
+    fb_prams = req['originalDetectIntentRequest']
+    sender = fb_prams["sender"]["id"]
     # if intent == 'get-homework':
     #     answer, longans = intents.gethomework()
     #     if answer == 'No':
