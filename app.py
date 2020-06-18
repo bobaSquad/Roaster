@@ -5,6 +5,10 @@ import requests
 
 # initialize the flask app
 app = Flask(__name__)
+token = "EAADeeYiPg2kBABAZC1iZB8iHKThEZC7gv9uXFD2xYlfErt8eZBD4ZAj4qBhpIt0xQpJ05GVsHXugqexz9KjzHHKTC5Q8UwlhzZBTgePmBbMJweNHOMWSCeSSHZChQn0J8WWZAU3Kfo0uleE8j8NMhi2eNfU8UWqGYnPRFRHqMcyJMAZDZD "
+url = f"https://graph.facebook.com/v7.0/me/messages?access_token={token}"
+message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
+    "text": ""}}
 
 
 # default route
@@ -24,8 +28,9 @@ def results():
     req = request.get_json(silent=True)
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
-    fb_prams = req['originalDetectIntentRequest']
-    # sender = fb_prams["sender"]["id"]
+    fb_prams = req['originalDetectIntentRequest']["payload"]["data"]
+    sender = fb_prams["sender"]["id"]
+
     # if intent == 'get-homework':
     #     answer, longans = intents.gethomework()
     #     if answer == 'No':
@@ -39,7 +44,11 @@ def results():
     #     return (ans)
     if intent == "init.cal":
         email = params["email"]
-        print(fb_prams)
+        headers = {'Content-type': 'application/json'}
+        message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
+        message_req["recipient"]["id"] = params["sender"]["id"]
+        message_req["message"]["text"] = "WORK"
+        requests.post(url, headers=headers, json=message_req)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
     return {'fulfillmentText': 'This is a response from webhook.'}
