@@ -5,10 +5,7 @@ import requests
 
 # initialize the flask app
 app = Flask(__name__)
-token = "EAADeeYiPg2kBABAZC1iZB8iHKThEZC7gv9uXFD2xYlfErt8eZBD4ZAj4qBhpIt0xQpJ05GVsHXugqexz9KjzHHKTC5Q8UwlhzZBTgePmBbMJweNHOMWSCeSSHZChQn0J8WWZAU3Kfo0uleE8j8NMhi2eNfU8UWqGYnPRFRHqMcyJMAZDZD "
-url = f"https://graph.facebook.com/v7.0/me/messages?access_token={token}"
-message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
-    "text": ""}}
+
 
 
 # default route
@@ -25,12 +22,16 @@ def webhook():
 
 
 def results():
+    token = "EAADeeYiPg2kBABAZC1iZB8iHKThEZC7gv9uXFD2xYlfErt8eZBD4ZAj4qBhpIt0xQpJ05GVsHXugqexz9KjzHHKTC5Q8UwlhzZBTgePmBbMJweNHOMWSCeSSHZChQn0J8WWZAU3Kfo0uleE8j8NMhi2eNfU8UWqGYnPRFRHqMcyJMAZDZD "
+    url = f"https://graph.facebook.com/v7.0/me/messages?access_token={token}"
+    message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
+        "text": ""}}
     req = request.get_json(silent=True)
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
     fb_prams = req['originalDetectIntentRequest']["payload"]["data"]
     sender = fb_prams["sender"]["id"]
-
+    print(fb_prams)
     # if intent == 'get-homework':
     #     answer, longans = intents.gethomework()
     #     if answer == 'No':
