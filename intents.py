@@ -11,12 +11,7 @@ from datetime import timedelta
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 import pymongo
-client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/<dbname>?retryWrites=true&w=majority")
-db = client.test
-print(db)
-#mydb = client.reminders
-mydb=client['reminders']
-mycol = mydb['reminders_col']
+
 # mydict = { "datetime":"","user_id": "eleezy", "event_name": "watch bts",'event_time':'12pm','description':'' }
 # x = mycol.insert_one(mydict)
 # print(x.inserted_id)
@@ -139,6 +134,13 @@ def addhomework(param,userid):
             ],
         },
     }
+
+    client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    db = client.test
+    print(db)
+#mydb = client.reminders
+    mydb=client['reminders']
+    mycol = mydb['reminders_col']
     mydict = { "user_id":userid, "event_name": homeworktype,'event_time':ans }
     x = mycol.insert_one(mydict)
     print(x.inserted_id)
