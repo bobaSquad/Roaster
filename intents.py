@@ -135,7 +135,7 @@ def addhomework(param,userid):
         },
     }
 
-    client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/<dbname>?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/reminders?retryWrites=true&w=majority")
     db = client.test
     print(db)
 #mydb = client.reminders
