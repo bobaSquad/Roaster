@@ -17,7 +17,8 @@ def results():
     # build a request object
     req = request.get_json(force=True)
     print(req)
-
+    receipient_id=req.get('originalDetectIntentRequest').get('payload').get('data').get('receipient').get('id')
+    print(receipient_id)
     # fetch action from json
     action = req.get('queryResult').get('action')
     if action == "get-homework":
@@ -29,7 +30,7 @@ def results():
     if action == 'add-homework':
         parameters = req.get('queryResult').get('parameters')
         print(parameters)
-        ans = intents.addhomework(parameters)
+        ans = intents.addhomework(parameters,receipient_id)
         return (ans)
 
     # return a fulfillment response

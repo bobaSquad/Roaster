@@ -14,15 +14,16 @@ import pymongo
 client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/<dbname>?retryWrites=true&w=majority")
 db = client.test
 print(db)
+mydb = client.reminders
 mydb=client['reminders']
-mycol = mydb["reminder-events"]
+mycol = mydb.reminder-events
 # mydict = { "datetime":"","user_id": "eleezy", "event_name": "watch bts",'event_time':'12pm','description':'' }
 # x = mycol.insert_one(mydict)
 # print(x.inserted_id)
 
-found=mycol.find({'user_id':'eleezy'})
-for doc in found:
-    print(doc)
+# found=mycol.find({'user_id':'eleezy'})
+# for doc in found:
+#     print(doc)
 
 
 def gethomework():
@@ -71,7 +72,7 @@ def gethomework():
     print(text)
     return('yes',text)
 
-def addhomework(param):
+def addhomework(param,userid):
 
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -138,6 +139,9 @@ def addhomework(param):
             ],
         },
     }
+    mydict = { "user_id":userid, "event_name": homeworktype,'event_time':ans }
+    x = mycol.insert_one(mydict)
+    print(x.inserted_id)
 
     event = service.events().insert(calendarId='primary', body=event).execute()
     return {'fulfillmentText': homeworktype+' at' + ans +' has been added to your calendar START WORKING U PIECE OF ****'}
