@@ -16,7 +16,7 @@ db = client.test
 print(db)
 mydb = client.reminders
 mydb=client['reminders']
-mycol = mydb.reminder-events
+mycol = mydb['reminders_col']
 # mydict = { "datetime":"","user_id": "eleezy", "event_name": "watch bts",'event_time':'12pm','description':'' }
 # x = mycol.insert_one(mydict)
 # print(x.inserted_id)
