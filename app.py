@@ -17,7 +17,7 @@ def results():
     # build a request object
     req = request.get_json(force=True)
     print(req)
-    receipient_id=req.get('originalDetectIntentRequest').get('payload').get('data').get('receipient').get('id')
+    receipient_id=req.get('originalDetectIntentRequest').get('payload').get('data').get('recipient').get('id')
     print(receipient_id)
     # fetch action from json
     action = req.get('queryResult').get('action')

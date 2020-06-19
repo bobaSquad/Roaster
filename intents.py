@@ -14,7 +14,7 @@ import pymongo
 client = pymongo.MongoClient("mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/<dbname>?retryWrites=true&w=majority")
 db = client.test
 print(db)
-mydb = client.reminders
+#mydb = client.reminders
 mydb=client['reminders']
 mycol = mydb['reminders_col']
 # mydict = { "datetime":"","user_id": "eleezy", "event_name": "watch bts",'event_time':'12pm','description':'' }
