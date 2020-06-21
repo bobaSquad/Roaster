@@ -23,7 +23,7 @@ def webhook():
 
 def results():
 
-    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAEPVvxi6tWh1qYk68jKPBcrA0oG60tO3xK0ggWHOUGF87Fdag7Ixyb9EVAlgMoX2UunvPMjFEGhzFigRjYWY0UzIuZBW9wvHe67Dw9NHmwC7XPSiHO02hbIi1oFPZC1tgUZC2v3KwoTFfk2wcxPZBiMXeG6v0rqS03MOE3XJ"
+    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAEIhwcwH0Rr7fgpzeTgY625ycuF92q60J443tQGVlg6tjck5z3ZB8KfFuxyOa9jattaHZBtwHbP103V1mpAfGsyW7AbtDQjwAtTDYFKDBKV01ncFGI7CIeI3Asp94GoQU4kymocACpESZAY7PTkV6qZAZAu1kYEUhRZC5Gm23D"
     message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
         "text": ""}}
     req = request.get_json(silent=True)
