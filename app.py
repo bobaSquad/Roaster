@@ -23,7 +23,7 @@ def webhook():
 
 def results():
 
-    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAAZCx9W2uAybS00HSX0SEM2wTlTT64w27cNup8hVzhaJRa2yLZB917gymQqzBVxZB2KUly7NxGLd6Vi8nOJBzQXlZC34IsEeZBjr8y4WA00SN4mvBOePjJ7kVdZBw26eV298hZCWH29AmKL1uE7l2XAo4hhlkmNwGIhdZB14gBi8"
+    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAEPVvxi6tWh1qYk68jKPBcrA0oG60tO3xK0ggWHOUGF87Fdag7Ixyb9EVAlgMoX2UunvPMjFEGhzFigRjYWY0UzIuZBW9wvHe67Dw9NHmwC7XPSiHO02hbIi1oFPZC1tgUZC2v3KwoTFfk2wcxPZBiMXeG6v0rqS03MOE3XJ"
     message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
         "text": ""}}
     req = request.get_json(silent=True)
@@ -47,7 +47,8 @@ def results():
         email = params["email"]
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = sender
-        message_req["message"]["text"] = "event is coming up soon! get ready!"
+        message_req["message"]["text"] = "event is coming up soon! get ready!"\
+        print(message_req)
         post_response = requests.post(url, json=message_req)
         print(post_response)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
