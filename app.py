@@ -28,11 +28,10 @@ def results():
             "id": ""
         },
         "message": {
-            "text": "hello, world!"
+            "text": ""
         }
     }
-    url = "https://graph.facebook.com/v7.0/me/messages?access_token" \
-          "=EAADeeYiPg2kBAJ9JIGnbZAXW63zP3lmTw8B74suE4FcV2d2mZBkMSA9KII2fjYHRWtX40jVOT9YENgJx8bv3KtZBBFbhK3Bpmv4ynnag6K6ZCacUmD6nJt2kmZC9jkvcofYJmvsrqXwdK3BZAkfyOPo6zvHEq847T8mvYWqkJQZBkhPJvQhrGGx"
+    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAJ9JIGnbZAXW63zP3lmTw8B74suE4FcV2d2mZBkMSA9KII2fjYHRWtX40jVOT9YENgJx8bv3KtZBBFbhK3Bpmv4ynnag6K6ZCacUmD6nJt2kmZC9jkvcofYJmvsrqXwdK3BZAkfyOPo6zvHEq847T8mvYWqkJQZBkhPJvQhrGGx"
     req = request.get_json(silent=True)
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
@@ -52,7 +51,7 @@ def results():
     #     return (ans)
     if intent == "init.cal":
         email = params["email"]
-        message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
+        message_req["messaging_type"] = "UPDATE"
         message_req["recipient"]["id"] = sender
         message_req["message"]["text"] = "event is coming up soon! get ready!"
         post_response = requests.post(url=url, json=message_req)
