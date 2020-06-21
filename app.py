@@ -1,11 +1,11 @@
 # import flask dependencies
 from flask import Flask, request, make_response, jsonify
 import requests
+
 # import intents
 
 # initialize the flask app
 app = Flask(__name__)
-
 
 
 # default route
@@ -22,10 +22,17 @@ def webhook():
 
 
 def results():
-
-
-    message_req = {"messaging_type": "", "recipient": {"id": ""}, "message": {
-        "text": ""}}
+    message_req = {
+        "messaging_type": "",
+        "recipient": {
+            "id": ""
+        },
+        "message": {
+            "text": "hello, world!"
+        }
+    }
+    url = "https://graph.facebook.com/v7.0/me/messages?access_token" \
+          "=EAADeeYiPg2kBAJ9JIGnbZAXW63zP3lmTw8B74suE4FcV2d2mZBkMSA9KII2fjYHRWtX40jVOT9YENgJx8bv3KtZBBFbhK3Bpmv4ynnag6K6ZCacUmD6nJt2kmZC9jkvcofYJmvsrqXwdK3BZAkfyOPo6zvHEq847T8mvYWqkJQZBkhPJvQhrGGx"
     req = request.get_json(silent=True)
     intent = req['queryResult']['intent']['displayName']
     params = req['queryResult']['parameters']
@@ -47,9 +54,8 @@ def results():
         email = params["email"]
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = sender
-        message_req["message"]["text"] = "event is coming up soon! get ready!"\
-
-        post_response = requests.post("https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAEIhwcwH0Rr7fgpzeTgY625ycuF92q60J443tQGVlg6tjck5z3ZB8KfFuxyOa9jattaHZBtwHbP103V1mpAfGsyW7AbtDQjwAtTDYFKDBKV01ncFGI7CIeI3Asp94GoQU4kymocACpESZAY7PTkV6qZAZAu1kYEUhRZC5Gm23D", json=message_req)
+        message_req["message"]["text"] = "event is coming up soon! get ready!"
+        post_response = requests.post(url=url, json=message_req)
         print(post_response)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
