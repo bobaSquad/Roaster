@@ -48,7 +48,7 @@ def results():
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = sender
         message_req["message"]["text"] = "event is coming up soon! get ready!"\
-        print(message_req)
+
         post_response = requests.post(url, json=message_req)
         print(post_response)
         return {'fulfillmentText': 'Calendar has been added! FFF'}
