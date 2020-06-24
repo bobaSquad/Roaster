@@ -5,8 +5,8 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-# from dateutil.parser import parse
-# from datetime import timedelta
+from dateutil.parser import parse
+from datetime import timedelta
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -87,19 +87,19 @@ def addhomework(param):
     datehw = param['date']
     timehw = param['time']
     print(homeworktype, email, datehw, timehw)
-    # dt = parse(datehw)
-    # print(dt.date())
-    # datehw = str(dt.date())
-    # # timehw = parse(timehw)
-    # timehw = str(timehw.time())
-    # ans = datehw+"T"+timehw+'+08:00'
-    # print(ans)
-    # # dateu = parse(ans)
-    # newdate = dateu+timedelta(hours=1)
-    # newdate = str(newdate)
-    # # newdate = parse(newdate)
-    # newdate = str(newdate.date())+"T"+str(newdate.time())+"+08:00"
-    # print(newdate, "HAHA")
+    dt = parse(datehw)
+    print(dt.date())
+    datehw = str(dt.date())
+    timehw = parse(timehw)
+    timehw = str(timehw.time())
+    ans = datehw+"T"+timehw+'+08:00'
+    print(ans)
+    dateu = parse(ans)
+    newdate = dateu+timedelta(hours=1)
+    newdate = str(newdate)
+    newdate = parse(newdate)
+    newdate = str(newdate.date())+"T"+str(newdate.time())+"+08:00"
+    print(newdate, "HAHA")
 
     event = {
         'summary': homeworktype,
@@ -123,7 +123,7 @@ def addhomework(param):
         },
     }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    return {'fulfillmentText': homeworktype+' at' + ans +' has been added to your calendar START WORKING U PIECE OF ****'}
+    event = service.events().insert(calendarId=email, body=event).execute()
+    return {'fulfillmentText': homeworktype+' at' + datehw +' has been added to your calendar START WORKING U PIECE OF ****'}
     # print 'Event created: %s' % (event.get('htmlLink'))
 
