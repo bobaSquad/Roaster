@@ -1,10 +1,14 @@
 # import flask dependencies
 from flask import Flask, request, make_response, jsonify
 import requests
+from redis import Redis
+from rq import Queue
+from rq_scheduler import Scheduler
+from datetime import datetime
+import intents
 
-# import intents
 
-# initialize the flask app
+
 app = Flask(__name__)
 
 
@@ -37,25 +41,24 @@ def results():
     params = req['queryResult']['parameters']
     fb_prams = req['originalDetectIntentRequest']["payload"]["data"]
     sender = fb_prams["sender"]["id"]
-    print(fb_prams)
-    # if intent == 'get-homework':
-    #     answer, longans = intents.gethomework()
-    #     if answer == 'No':
-    #         return {'fulfillmentText': longans}
-    #     return {'fulfillmentText': longans}
-    #
-    # if intent == 'add-homework':
-    #     parameters = req.get('queryResult').get('parameters')
-    #     print(parameters)
-    #     ans = intents.addhomework(parameters)
-    #     return (ans)
+    if intent == 'get-homework':
+        answer, longans = intents.gethomework()
+        if answer == 'No':
+            return {'fulfillmentText': longans}
+        return {'fulfillmentText': longans}
+
+    if intent == 'add-homework':
+        parameters = req.get('queryResult').get('parameters')
+        print(parameters)
+        ans = intents.addhomework(parameters)
+        return (ans)
     if intent == "init.cal":
         email = params["email"]
-        message_req["messaging_type"] = "UPDATE"
+        message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = sender
         message_req["message"]["text"] = "event is coming up soon! get ready!"
         post_response = requests.post(url=url, json=message_req)
-        print(post_response)
+
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
     return {'fulfillmentText': 'This is a response from webhook.'}

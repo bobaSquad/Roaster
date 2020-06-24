@@ -1,14 +1,41 @@
 from __future__ import print_function
 import datetime
+import requests
 import pickle
+import urllib.parse
 import os.path
+import pprint
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 # from dateutil.parser import parse
 # from datetime import timedelta
+from redis import Redis
+from rq import Queue
+from rq_scheduler import Scheduler
+from datetime import datetime
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
+KEY = "AIzaSyBDTle_FAUDLrCY2f5fpVrp1-DWfVvNeuY"
+
+def get_events(cal_id):
+    URI = f'https://content.googleapis.com/calendar/v3/calendars/' \
+          f'{urllib.parse.quote(cal_id)}/events' \
+          f'?key={KEY}' \
+          f'&maxResults=10' \
+          f'&singleEvents=true' \
+          f'&fields=items(summary%2Cstart)' \
+          f'&timeMin={datetime.datetime.utcnow().isoformat()}Z'
+    response = requests.get(URI).json()["items"]
+    scheduler = Scheduler(cal_id, connection=Redis())  # Get a scheduler for
+    # the "foo" queue
+    for event in response:
+        datetime.strptime({event["start"][datetime]}, '%Y-%M-%dT%H:%M:%SZ')
+        #scheduler.enqueue_at(, func)
+    print("hey")
+
+
+
 
 
 def gethomework():
@@ -56,6 +83,7 @@ def gethomework():
     #return(start, event['summary'])
     print(text)
     return('yes',text)
+
 
 def addhomework(param):
 
@@ -127,3 +155,6 @@ def addhomework(param):
     return {'fulfillmentText': homeworktype+' at' + ans +' has been added to your calendar START WORKING U PIECE OF ****'}
     # print 'Event created: %s' % (event.get('htmlLink'))
 
+
+if __name__ == '__main__':
+    get_events("ag9126@g.rit.edu")

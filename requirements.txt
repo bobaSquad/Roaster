@@ -14,5 +14,10 @@ google-auth-httplib2==0.0.3
 google-auth-oauthlib==0.4.1
 googleapis-common-protos==1.51.0
 requests~=2.24.0
-python-dateutil==2.8.1     
+python-dateutil==2.8.1
+croniter~=0.3.34
+natsort~=7.0.1
+redis~=3.5.3
+rq~=1.4.2
+rq-scheduler~=0.10.0
 
