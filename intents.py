@@ -48,7 +48,7 @@ def get_events(cal_id, url, message_req):
         message_req["message"]["text"] = f'Are you trying to fail this ' \
                                          f'class!? SMH - {event["summary"]} is ' \
                                          f'coming up!'
-        scheduler.enqueue_at(st_time, requests.post(url=url, json=message_req))
+        scheduler.enqueue_at(st_time, send_message(url, message_req))
 
 
 def gethomework():
@@ -168,6 +168,9 @@ def addhomework(param):
         'fulfillmentText': homeworktype + ' at' + datehw + ' has been added to your calendar START WORKING U PIECE OF ****'}
     # print 'Event created: %s' % (event.get('htmlLink'))
 
+
+def send_message(url, message_req):
+    requests.post(url=url, json=message_req)
 
 if __name__ == '__main__':
     get_events("ag9126@g.rit.edu")
