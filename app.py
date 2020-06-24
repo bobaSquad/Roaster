@@ -6,7 +6,7 @@ from rq import Queue
 from rq_scheduler import Scheduler
 from datetime import datetime
 import intents
-
+import pymongo
 
 
 app = Flask(__name__)
@@ -50,7 +50,7 @@ def results():
     if intent == 'add-homework':
         parameters = req.get('queryResult').get('parameters')
         print(parameters)
-        ans = intents.addhomework(parameters)
+        ans = intents.addhomework(parameters, sender)
         return (ans)
     if intent == "init.cal":
         email = params["email"]
@@ -58,6 +58,18 @@ def results():
         message_req["recipient"]["id"] = sender
 
         intents.get_events(email, url, message_req)
+        client = pymongo.MongoClient(
+            "mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/reminders?retryWrites=true&w=majority")
+        db = client.test
+        print(db)
+    # mydb = client.reminders
+        mydb = client.reminders
+        mycol = mydb.reminder_events
+        # mydb=client['reminders']
+        # mycol = mydb['reminders_col']
+        mydict = {"user_id": sender, "email": email}
+        x = mycol.insert_one(mydict)
+        print(x.inserted_id)
 
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 
@@ -67,3 +79,33 @@ def results():
 # run the app
 if __name__ == '__main__':
     app.run()
+    url = "https://graph.facebook.com/v7.0/me/messages?access_token=EAADeeYiPg2kBAJ9JIGnbZAXW63zP3lmTw8B74suE4FcV2d2mZBkMSA9KII2fjYHRWtX40jVOT9YENgJx8bv3KtZBBFbhK3Bpmv4ynnag6K6ZCacUmD6nJt2kmZC9jkvcofYJmvsrqXwdK3BZAkfyOPo6zvHEq847T8mvYWqkJQZBkhPJvQhrGGx"
+
+    client = pymongo.MongoClient(
+        "mongodb+srv://eleezy99:jhopelover@fb-cluster-t7wyf.mongodb.net/reminders?retryWrites=true&w=majority")
+    db = client.test
+    mydb = client.reminders
+    mycol = mydb.reminder_events
+
+    res = mycol.find()
+    email = params["email"]
+
+    for doc in res:
+        message_req = {
+    "messaging_type": "",
+    "recipient": {
+        "id": ""
+    },
+    "message": {
+        "text": ""
+    }
+        }
+
+        user_id=doc['user_id']
+        email=doc["email"]
+        message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
+        message_req["recipient"]["id"] = user_id
+        print(email)
+        print(user_id)
+        intents.get_events(email, url, message_req)
+
