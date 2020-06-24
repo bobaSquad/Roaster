@@ -18,6 +18,7 @@ def results():
     req = request.get_json(force=True)
     print(req)
     receipient_id=req.get('originalDetectIntentRequest').get('payload').get('data').get('recipient').get('id')
+    
     print(receipient_id)
     # fetch action from json
     action = req.get('queryResult').get('action')
@@ -46,4 +47,6 @@ def webhook():
 
 # run the app
 if __name__ == '__main__':
+    
     app.run()
+    

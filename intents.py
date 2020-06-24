@@ -147,7 +147,7 @@ def addhomework(param,userid):
     x = mycol.insert_one(mydict)
     print(x.inserted_id)
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
+    event = service.events().insert(calendarId=email, body=event).execute()
     return {'fulfillmentText': homeworktype+' at' + ans +' has been added to your calendar START WORKING U PIECE OF ****'}
     # print 'Event created: %s' % (event.get('htmlLink'))
 
