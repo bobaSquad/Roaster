@@ -8,6 +8,9 @@ Try it out: [messenger bot](http://m.me/110530610671836)
 Missing a deadline, procrastination, or just no motivation what so ever - we have all dealt with such treacherous paths during our time as a student. How do we remedy this, you ask? Well, we all love hearing that "ding" on our phones as we get a message - what if you got a bunch of those roasting you? Let us explain - what if they roasted you about your chronic procrastination, laziness, and just guilt-tripped you into making sure you don't fail that one 8 am class?
 
 ## What it does
+The bot first takes a calendar ID. And then, events are obtained from the google calendar API using the calendar ID and the user is reminded of the events via messenger. These events are assumed to be deadlines for assignments, meeting times, etc. The reminders simply roast you!
+
+## How to use it
 1. Reach out to the messenger bot.
 2. Text it your calendar id (google calendar) - it is your email associated with the calendar.
 3. Get ready to get roasted and reminded!
