@@ -33,6 +33,7 @@ def get_events(cal_id, url, message_req):
           f'&singleEvents=true' \
           f'&fields=items(summary%2Cstart)' \
           f'&timeMin={datetime.datetime.utcnow().isoformat()}Z'
+    print(requests.get(URI).json())
     response = requests.get(URI).json()["items"]  # retrieving events
     scheduler = Scheduler("randomseed", connection=Redis())  # constructs
     # scheduler
