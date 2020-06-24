@@ -1,6 +1,9 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 # Roaster
+Get roasted for upcoming deadlines and your chronic procrastination.
+Try it out: [messenger bot](http://m.me/110530610671836)
+
 ## Inspiration
 Missing a deadline, procrastination, or just no motivation what so ever - we have all dealt with such treacherous paths during our time as a student. How do we remedy this, you ask? Well, we all love hearing that "ding" on our phones as we get a message - what if you got a bunch of those roasting you? Let us explain - what if they roasted you about your chronic procrastination, laziness, and just guilt-tripped you into making sure you don't fail that one 8 am class?
 
