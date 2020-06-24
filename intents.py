@@ -38,16 +38,16 @@ def get_events(cal_id, url, message_req):
     # scheduler
     # with cal_id as identifier
     for event in response:
-        print(event)
-        st_time = datetime.datetime.strptime(f'{event["start"]["date"]}Z',
-                          '%Y-%m-%dT%H:%M:%SZ')
+        try:
+            st_time = datetime.datetime.strptime(f'{event["start"]["date"]}Z',
+                                                 '%Y-%m-%dT%H:%M:%SZ')
+        except ValueError:
+            st_time = datetime.datetime.strptime(f'{event["start"]["date"]}Z',
+                                                 '%Y-%m-%dZ')
         message_req["message"]["text"] = f"Are you trying to fail this " \
                                          f"class!? SMH - {event.summary} is " \
                                          f"coming up!"
         scheduler.enqueue_at(st_time, requests.post(url=url, json=message_req))
-
-
-
 
 
 def gethomework():
@@ -87,18 +87,17 @@ def gethomework():
     if not events:
         print('No upcoming events found.')
         return ("No", 'No upcoming events found')
-    text=''
+    text = ''
     print(events)
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
-        text=text+start+' '+event['summary']+'\n'
-    #return(start, event['summary'])
+        text = text + start + ' ' + event['summary'] + '\n'
+    # return(start, event['summary'])
     print(text)
-    return('yes',text)
+    return ('yes', text)
 
 
 def addhomework(param):
-
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -132,13 +131,13 @@ def addhomework(param):
     datehw = str(dt.date())
     timehw = parse(timehw)
     timehw = str(timehw.time())
-    ans = datehw+"T"+timehw+'+08:00'
+    ans = datehw + "T" + timehw + '+08:00'
     print(ans)
     dateu = parse(ans)
-    newdate = dateu+timedelta(hours=1)
+    newdate = dateu + timedelta(hours=1)
     newdate = str(newdate)
     newdate = parse(newdate)
-    newdate = str(newdate.date())+"T"+str(newdate.time())+"+08:00"
+    newdate = str(newdate.date()) + "T" + str(newdate.time()) + "+08:00"
     print(newdate, "HAHA")
 
     event = {
@@ -164,7 +163,8 @@ def addhomework(param):
     }
 
     event = service.events().insert(calendarId=email, body=event).execute()
-    return {'fulfillmentText': homeworktype+' at' + datehw +' has been added to your calendar START WORKING U PIECE OF ****'}
+    return {
+        'fulfillmentText': homeworktype + ' at' + datehw + ' has been added to your calendar START WORKING U PIECE OF ****'}
     # print 'Event created: %s' % (event.get('htmlLink'))
 
 
