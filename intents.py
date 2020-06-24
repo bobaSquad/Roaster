@@ -13,8 +13,6 @@ from google.auth.transport.requests import Request
 from redis import Redis
 from rq import Queue
 from rq_scheduler import Scheduler
-from datetime import datetime
-import requests
 from dateutil.parser import parse
 from datetime import timedelta
 
@@ -40,7 +38,7 @@ def get_events(cal_id, url, message_req):
     # scheduler
     # with cal_id as identifier
     for event in response:
-        st_time = datetime.strptime(f'{event["start"]["datetime"]}Z',
+        st_time = datetime.datetime.strptime(f'{event["start"]["datetime"]}Z',
                           '%Y-%m-%dT%H:%M:%SZ')
         message_req["message"]["text"] = f"Are you trying to fail this " \
                                          f"class!? SMH - {event.summary} is " \
