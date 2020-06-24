@@ -45,9 +45,9 @@ def get_events(cal_id, url, message_req):
         except ValueError:
             st_time = datetime.datetime.strptime(f'{event["start"]["date"]}Z',
                                                  '%Y-%m-%dZ')
-        message_req["message"]["text"] = f"Are you trying to fail this " \
-                                         f"class!? SMH - {event.summary} is " \
-                                         f"coming up!"
+        message_req["message"]["text"] = f'Are you trying to fail this ' \
+                                         f'class!? SMH - {event["summary"]} is ' \
+                                         f'coming up!'
         scheduler.enqueue_at(st_time, requests.post(url=url, json=message_req))
 
 
