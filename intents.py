@@ -39,7 +39,7 @@ def get_events(cal_id, url, message_req):
     # with cal_id as identifier
     for event in response:
         print(event)
-        st_time = datetime.datetime.strptime(f'{event["start"]["dateTime"]}Z',
+        st_time = datetime.datetime.strptime(f'{event["start"]["date"]}Z',
                           '%Y-%m-%dT%H:%M:%SZ')
         message_req["message"]["text"] = f"Are you trying to fail this " \
                                          f"class!? SMH - {event.summary} is " \
