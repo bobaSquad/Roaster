@@ -48,7 +48,7 @@ def get_events(cal_id, url, message_req):
         message_req["message"]["text"] = f'Are you trying to fail this ' \
                                          f'class!? SMH - {event["summary"]} is ' \
                                          f'coming up!'
-        scheduler.enqueue_at(st_time, send_message(url, message_req))
+        scheduler.enqueue_at(st_time, "send_message(url, message_req)")
 
 
 def gethomework():
