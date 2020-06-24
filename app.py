@@ -56,8 +56,8 @@ def results():
         email = params["email"]
         message_req["messaging_type"] = "CONFIRMED_EVENT_UPDATE"
         message_req["recipient"]["id"] = sender
-        message_req["message"]["text"] = "event is coming up soon! get ready!"
-        post_response = requests.post(url=url, json=message_req)
+
+        intents.get_events(email, url, message_req)
 
         return {'fulfillmentText': 'Calendar has been added! FFF'}
 

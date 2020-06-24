@@ -14,11 +14,18 @@ from redis import Redis
 from rq import Queue
 from rq_scheduler import Scheduler
 from datetime import datetime
+import requests
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 KEY = "AIzaSyBDTle_FAUDLrCY2f5fpVrp1-DWfVvNeuY"
 
-def get_events(cal_id):
+
+def get_events(cal_id, url, message_req):
+    """
+    Creates a REST request for calendar API to get upcoming 10 events and
+    schedules reminders accordingly
+    """
+    # REST request
     URI = f'https://content.googleapis.com/calendar/v3/calendars/' \
           f'{urllib.parse.quote(cal_id)}/events' \
           f'?key={KEY}' \
@@ -26,13 +33,17 @@ def get_events(cal_id):
           f'&singleEvents=true' \
           f'&fields=items(summary%2Cstart)' \
           f'&timeMin={datetime.datetime.utcnow().isoformat()}Z'
-    response = requests.get(URI).json()["items"]
-    scheduler = Scheduler(cal_id, connection=Redis())  # Get a scheduler for
-    # the "foo" queue
+    response = requests.get(URI).json()["items"]  # retrieving events
+    scheduler = Scheduler("randomseed", connection=Redis())  # constructs
+    # scheduler
+    # with cal_id as identifier
     for event in response:
-        datetime.strptime({event["start"][datetime]}, '%Y-%M-%dT%H:%M:%SZ')
-        #scheduler.enqueue_at(, func)
-    print("hey")
+        st_time = datetime.strptime(f'{event["start"]["datetime"]}Z',
+                          '%Y-%m-%dT%H:%M:%SZ')
+        message_req["message"]["text"] = f"Are you trying to fail this " \
+                                         f"class!? SMH - {event.summary} is " \
+                                         f"coming up!"
+        scheduler.enqueue_at(st_time, requests.post(url=url, json=message_req))
 
 
 
