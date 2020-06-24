@@ -143,7 +143,7 @@ def addhomework(param,userid):
     mycol=mydb.reminder_events
     # mydb=client['reminders']
     # mycol = mydb['reminders_col']
-    mydict = { "user_id":userid, "event_name": homeworktype,'event_date':datehw,'event_time':timehw}
+    mydict = { "user_id":userid, "email":email,"event_name": homeworktype,'event_date':datehw,'event_time':timehw}
     x = mycol.insert_one(mydict)
     print(x.inserted_id)
 
